@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manus AI - Advanced AI Solutions</title>
+    <style>
+066ff;
+            --secondary-bg: #f5f7fa;
+            --card-bg: #ffffff;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --accent-color: #4d8bff;
+            --secondary-bg: #1e1e1e;
+            --card-bg: #2a2a2a;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--bg-color);
+            box-shadow: 0 2px 10px var(--shadow-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span {
+            background: linear-gradient(90deg, var(--accent-color), #00c2ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .main-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .main-nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .main-nav a:hover {
+            color: var(--accent-color);
+        }
+        
+        .main-nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent-color);
+            transition: width 0.3s;
+        }
+        
+        .main-nav a:hover::after {
+            width: 100%;
+        }
+        
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+        
+        .menu-toggle span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: var(--text-color);
+            transition: all 0.3s;
+        }
+
+        .theme-toggle {
+            display: flex;
+            gap: 0.5rem;
+            background-color: var(--secondary-bg);
+            padding: 0.5rem;
+            border-radius: 2rem;
+        }
+
+        .theme-option {
+            border: none;
+            background: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-option.active {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .theme-option:not(.active) {
+            color: var(--text-color);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        section {
+            margin-bottom: 4rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, var(--accent-color), #00c2ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-color);
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .hero {
+            position: relative;
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+        }
+
+        .video-container {
+            width: 100%;
+            max-width: 900px;
+            margin: 2rem auto;
+            box-shadow: 0 10px 30px var(--shadow-color);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+        }
+
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        .faq-container {
+            margin-top: 2rem;
+        }
+
+        .faq-item {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow-color);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            display: none;
+        }
+
+        .active .faq-answer {
+            display: block;
+        }
+
+        .tech-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.3;
+            z-index: 1;
+        }
+
+        .tech-circle {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid var(--accent-color);
+            animation: pulse 4s infinite alternate;
+        }
+
+        .tech-line {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+            height: 1px;
+            animation: slide 8s infinite linear;
+        }
+
+        .tech-dot {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            animation: float 6s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.2;
+            }
+            100% {
+                transform: scale(1.1);
+                opacity: 0.4;
+            }
+        }
+
+        @keyframes slide {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+            }
+            100% {
+                transform: translateY(20px) translateX(20px);
+            }
+        }
+
+        footer {
+            background-color: var(--secondary-bg);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+            .features {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .main-nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--bg-color);
+                box-shadow: 0 5px 10px var(--shadow-color);
+                padding: 1rem 0;
+                z-index: 99;
+            }
+            
+            .main-nav.active {
+                display: block;
+            }
+            
+            .main-nav ul {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .main-nav li {
+                margin: 0;
+            }
+            
+            .main-nav a {
+                display: block;
+                padding: 1rem 2rem;
+            }
+            
+            .menu-toggle {
+                display: flex;
+            }
+            
+            .menu-toggle.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+            
+            .menu-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .menu-toggle.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(5px, -5px);
+            }
+            
+            .hero h1 {
+                font-size: 2.3rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            header {
+                padding: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            header {
+                flex-wrap: wrap;
+            }
+            
+            .theme-toggle {
+                margin-left: auto;
+                margin-right: 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .video-container {
+                margin: 1rem auto;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <div>Manus <span>AI</span></div>
+        </div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#showcase">Showcase</a></li>
+                <li><a href="#open-source">Open Source</a></li>
+                <li><a href="#api">API</a></li>
+                <li><a href="#latest-news">Latest News</a></li>
+            </ul>
+        </nav>
+        <div class="theme-toggle">
+            <button class="theme-option" data-theme="light">☀️</button>
+            <button class="theme-option" data-theme="dark">🌙</button>
+            <button class="theme-option active" data-theme="system">⚙️</button>
+        </div>
+        <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <main>
+        <div class="tech-elements">
+            <div class="tech-circle" style="width: 200px; height: 200px; top: 10%; left: 5%;"></div>
+            <div class="tech-circle" style="width: 150px; height: 150px; top: 50%; right: 10%;"></div>
+            <div class="tech-line" style="width: 80%; top: 30%; left: 10%;"></div>
+            <div class="tech-line" style="width: 60%; top: 70%; left: 20%;"></div>
+            <div class="tech-dot" style="top: 25%; left: 25%;"></div>
+            <div class="tech-dot" style="top: 45%; left: 65%;"></div>
+            <div class="tech-dot" style="top: 75%; left: 45%;"></div>
+        </div>
+
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Welcome to Manus AI</h1>
+                <p>Empowering the future with cutting-edge artificial intelligence solutions.</p>
+            </div>
+        </section>
+
+        <section id="introduction">
+            <h2>Introduction to Manus AI</h2>
+            <p>Manus AI is a pioneering company at the forefront of artificial intelligence technology. We develop innovative AI solutions that transform how businesses operate and interact with their customers. Our advanced algorithms and machine learning models are designed to solve complex problems, automate processes, and deliver actionable insights.</p>
+            
+            <div class="video-container">
+                <video controls autoplay muted>
+                    <source src="https://files.manuscdn.com/assets/video/Manus-Chinese-2k-compressed-v2.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            
+            <p>Our team of expert engineers, data scientists, and researchers work tirelessly to push the boundaries of what's possible with AI. From natural language processing to computer vision and predictive analytics, Manus AI is committed to developing solutions that are not only powerful but also accessible, ethical, and user-friendly.</p>
+        </section>
+        
+        <section id="showcase">
+            <h2>Showcase</h2>
+            <p>Explore our collection of successful AI implementations across various industries. These case studies demonstrate the real-world impact of Manus AI technology.</p>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">🏥</div>
+                    <h3 class="feature-title">Healthcare Analytics</h3>
+                    <p>Our AI-powered diagnostic assistance system helped a major hospital network improve early detection rates by 47% while reducing false positives by 38%.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🏦</div>
+                    <h3 class="feature-title">Financial Services</h3>
+                    <p>A leading financial institution implemented our fraud detection system, resulting in a 62% increase in detection accuracy and savings of $4.2M annually.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🏭</div>
+                    <h3 class="feature-title">Manufacturing Optimization</h3>
+                    <p>Our predictive maintenance solution helped a global manufacturer reduce downtime by 35% and maintenance costs by 28%, improving overall operational efficiency.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="open-source">
+            <h2>Open Source</h2>
+            <p>At Manus AI, we believe in the power of collaboration and knowledge sharing. We're proud to contribute to the AI community through our open-source initiatives.</p>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3 class="feature-title">ManusNLP</h3>
+                    <p>Our natural language processing library designed for high-performance text analysis and understanding. Features include sentiment analysis, entity recognition, and language detection optimized for production environments.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">👁️</div>
+                    <h3 class="feature-title">VisionKit</h3>
+                    <p>A comprehensive computer vision toolkit that simplifies implementing advanced image recognition and processing capabilities in your applications.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3 class="feature-title">PredictML</h3>
+                    <p>Our machine learning framework focused on making predictive analytics accessible and efficient for developers across skill levels.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="api">
+            <h2>API</h2>
+            <p>Access the power of Manus AI through our comprehensive, well-documented APIs. Integrate our cutting-edge AI capabilities directly into your applications and services.</p>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3 class="feature-title">Conversational AI API</h3>
+                    <p>Build sophisticated chatbots and virtual assistants with our natural language understanding and generation capabilities. Supports multiple languages and domain-specific customization.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3 class="feature-title">Visual Recognition API</h3>
+                    <p>Integrate powerful image and video analysis capabilities into your applications. Features include object detection, facial recognition, and scene understanding.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3 class="feature-title">Predictive Analytics API</h3>
+                    <p>Access our advanced forecasting and anomaly detection capabilities to power data-driven decision making in your organization.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="latest-news">
+            <h2>Latest News</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">🌟</div>
+                    <h3 class="feature-title">Manus AI Launches Next-Generation Conversational Model</h3>
+                    <p>Our research team has unveiled a breakthrough in natural language understanding, achieving new state-of-the-art performance on multiple industry benchmarks.</p>
+                    <p class="news-date">March 1, 2025</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🤝</div>
+                    <h3 class="feature-title">Strategic Partnership with Global Tech Leader</h3>
+                    <p>Manus AI announces a major collaboration to bring advanced AI capabilities to enterprise clients worldwide through integrated cloud solutions.</p>
+                    <p class="news-date">February 15, 2025</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🏆</div>
+                    <h3 class="feature-title">Recognition at International AI Summit</h3>
+                    <p>Our innovative approach to ethical AI development was recognized with the Innovation Excellence Award at this year's Global AI Summit.</p>
+                    <p class="news-date">January 28, 2025</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="why-choose">
+            <h2>Why Choose Manus AI?</h2>
+            <p>In a rapidly evolving technological landscape, choosing the right AI partner is crucial for your business success. Here's why Manus AI stands out from the competition:</p>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">🔬</div>
+                    <h3 class="feature-title">Cutting-Edge Technology</h3>
+                    <p>Our solutions leverage the latest advancements in AI research, ensuring you have access to state-of-the-art technology that delivers superior results.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🛠️</div>
+                    <h3 class="feature-title">Customized Solutions</h3>
+                    <p>We understand that every business is unique. Our team works closely with you to develop tailored AI solutions that address your specific challenges and objectives.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3 class="feature-title">Data-Driven Insights</h3>
+                    <p>Transform raw data into valuable insights with our advanced analytics capabilities, enabling more informed decision-making and strategic planning.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3 class="feature-title">Security & Privacy</h3>
+                    <p>We prioritize the security and privacy of your data, implementing robust measures to protect sensitive information and ensure compliance with regulations.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3 class="feature-title">Scalable Architecture</h3>
+                    <p>Our solutions are designed to grow with your business, providing the flexibility and scalability needed to adapt to changing requirements and increasing demands.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <h3 class="feature-title">Expert Support</h3>
+                    <p>Benefit from the expertise of our dedicated team, who provide comprehensive support throughout implementation and beyond, ensuring you maximize the value of your AI investment.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What industries does Manus AI serve?
+                        <span class="toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Manus AI serves a wide range of industries including healthcare, finance, retail, manufacturing, logistics, and education. Our flexible AI solutions can be adapted to address the unique challenges and requirements of various sectors.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How long does it take to implement Manus AI solutions?
+                        <span class="toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Implementation timelines vary depending on the complexity of the solution and specific requirements. Typically, basic implementations can be completed within 4-8 weeks, while more complex, enterprise-wide deployments may take 3-6 months. Our team works closely with you to establish a realistic timeline based on your needs.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Do I need to have technical expertise to use Manus AI?
+                        <span class="toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No, our solutions are designed with user-friendly interfaces that don't require advanced technical knowledge. However, we provide comprehensive training and support to ensure your team can effectively utilize and maximize the benefits of our AI systems.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How does Manus AI handle data privacy and security?
+                        <span class="toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We take data privacy and security very seriously. Our solutions comply with industry standards and regulations such as GDPR, HIPAA, and others as applicable. We implement robust encryption, access controls, and regular security audits to protect your data. Additionally, we can work with your IT team to ensure our solutions align with your organization's security policies.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Can Manus AI integrate with our existing systems?
+                        <span class="toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, our solutions are designed with interoperability in mind. We offer various integration options, including APIs, webhooks, and custom connectors, to ensure seamless integration with your existing infrastructure, databases, and software applications.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What kind of ROI can we expect from implementing Manus AI?
+                        <span class="toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>ROI varies based on the specific solution and your business context. However, our clients typically see returns through increased operational efficiency, reduced costs, improved customer experiences, and new revenue opportunities. We work with you to establish clear metrics and KPIs to measure the impact of our solutions on your business.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Manus AI. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Theme toggling functionality
+        const themeToggleButtons = document.querySelectorAll('.theme-option');
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        
+        // Function to set the theme
+        function setTheme(theme) {
+            if (theme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            } else if (theme === 'light') {
+                document.documentElement.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+            } else {
+                // System preference
+                localStorage.setItem('theme', 'system');
+                if (prefersDarkScheme.matches) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                }
+            }
+            
+            // Update active class
+            themeToggleButtons.forEach(button => {
+                if (button.dataset.theme === theme) {
+                    button.classList.add('active');
+                } else {
+                    button.classList.remove('active');
+                }
+            });
+        }
+        
+        // Initialize theme from localStorage or default to system
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'system';
+            
+            // Update button active state
+            themeToggleButtons.forEach(button => {
+                if (button.dataset.theme === savedTheme) {
+                    button.classList.add('active');
+                } else {
+                    button.classList.remove('active');
+                }
+            });
+            
+            // Apply the theme
+            setTheme(savedTheme);
+        }
+        
+        // Initialize theme on page load
+        document.addEventListener('DOMContentLoaded', initTheme);
+        
+        // Listen for theme toggle clicks
+        themeToggleButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                setTheme(button.dataset.theme);
+            });
+        });
+        
+        // Listen for system preference changes
+        prefersDarkScheme.addEventListener('change', () => {
+            if (localStorage.getItem('theme') === 'system') {
+                setTheme('system');
+            }
+        });
+        
+        // Mobile menu toggle functionality
+        const menuToggle = document.querySelector('.menu-toggle');
+        const mainNav = document.querySelector('.main-nav');
+        
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            mainNav.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking on a nav link
+        const navLinks = document.querySelectorAll('.main-nav a');
+        
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (mainNav.classList.contains('active')) {
+                    menuToggle.classList.remove('active');
+                    mainNav.classList.remove('active');
+                }
+            });
+        });
+        
+        // FAQ toggle functionality
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            
+            // Set first FAQ item to be open by default
+            if (item === faqItems[0]) {
+                item.classList.add('active');
+                const toggle = question.querySelector('.toggle');
+                toggle.textContent = '-';
+            }
+            
+            question.addEventListener('click', () => {
+                // Toggle current item
+                item.classList.toggle('active');
+                
+                // Update toggle icon
+                const toggle = question.querySelector('.toggle');
+                if (item.classList.contains('active')) {
+                    toggle.textContent = '-';
+                } else {
+                    toggle.textContent = '+';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
